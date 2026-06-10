@@ -20,13 +20,13 @@ jobs:
       # Step 1: Checkout the repository code
       # -------------------------------------------------------
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # -------------------------------------------------------
       # Step 2: Set up Python
       # -------------------------------------------------------
       - name: Set Up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -97,14 +97,14 @@ jobs:
       # -------------------------------------------------------
       - name: Upload Allure Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: reports/allure-report
 
       - name: Upload HTML Reports
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: html-reports
           path: reports/*.html
