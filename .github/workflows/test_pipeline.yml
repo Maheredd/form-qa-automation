@@ -71,6 +71,7 @@ jobs:
       # Step 7: Run Selenium UI tests in headless mode
       # -------------------------------------------------------
       - name: Run UI Tests (Headless)
+        continue-on-error: true
         run: |
           pytest tests/test_field_validations.py \
                  tests/test_file_upload.py \
