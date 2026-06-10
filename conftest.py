@@ -4,7 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # Base URL of the form being tested
-BASE_URL = "https://demoqa.com/automation-practice-form"
+import os
+BASE_URL = "file://" + os.path.abspath(os.path.join(os.path.dirname(__file__), "app", "index.html")).replace("\\", "/")
 
 
 # -------------------------------------------------------

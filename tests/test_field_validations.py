@@ -5,8 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
 
-# URL of the demo form
-FORM_URL = "https://demoqa.com/automation-practice-form"
+from conftest import BASE_URL as FORM_URL
 
 
 @pytest.fixture(scope="module")
@@ -53,7 +52,7 @@ def test_submit_empty_form(driver):
     scroll_and_click(driver, submit_btn)
 
     # Page should still be on the same URL
-    assert "automation-practice-form" in driver.current_url, \
+    assert "index.html" in driver.current_url, \
         "BUG: Form submitted successfully with all fields empty!"
 
 
@@ -79,8 +78,7 @@ def test_invalid_email_formats(driver, invalid_email):
     scroll_and_click(driver, submit_btn)
 
     # Check field border turns red (invalid state)
-    border_color = email_field.value_of_css_property("border-color")
-    assert "rgb(220, 53, 69)" in border_color or "rgb(215, 55, 69)" in border_color, \
+    assert "is-invalid" in email_field.get_attribute("class"), \
         f"BUG: Invalid email '{invalid_email}' was accepted without an error!"
 
 
@@ -96,8 +94,7 @@ def test_valid_email_accepted(driver):
     email_field.send_keys("mahesh@example.com")
 
     # Field border should NOT be red
-    border_color = email_field.value_of_css_property("border-color")
-    assert "rgb(220, 53, 69)" not in border_color and "rgb(215, 55, 69)" not in border_color, \
+    assert "is-invalid" not in email_field.get_attribute("class"), \
         "BUG: Valid email flagged as invalid!"
 
 
@@ -160,8 +157,7 @@ def test_invalid_phone_number(driver, invalid_phone):
     submit_btn = driver.find_element(By.ID, "submit")
     scroll_and_click(driver, submit_btn)
 
-    border_color = phone_field.value_of_css_property("border-color")
-    assert "rgb(220, 53, 69)" in border_color or "rgb(215, 55, 69)" in border_color, \
+    assert "is-invalid" in phone_field.get_attribute("class"), \
         f"BUG: Invalid phone '{invalid_phone}' was accepted!"
 
 
@@ -176,6 +172,5 @@ def test_valid_phone_number(driver):
     phone_field.clear()
     phone_field.send_keys("9110815046")
 
-    border_color = phone_field.value_of_css_property("border-color")
-    assert "rgb(220, 53, 69)" not in border_color and "rgb(215, 55, 69)" not in border_color, \
+    assert "is-invalid" not in phone_field.get_attribute("class"), \
         "BUG: Valid phone number flagged as invalid!"

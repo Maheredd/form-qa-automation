@@ -5,8 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# URL of the demo form
-FORM_URL = "https://demoqa.com/automation-practice-form"
+from conftest import BASE_URL as FORM_URL
 
 
 # -------------------------------------------------------
@@ -261,5 +260,5 @@ def test_close_confirmation_modal(driver):
         WebDriverWait(driver, 10).until(
             EC.invisibility_of_element_located((By.ID, "example-modal-sizes-title-lg"))
         )
-        assert "automation-practice-form" in driver.current_url, \
+        assert "index.html" in driver.current_url, \
             "BUG: Page navigated away after closing the modal!"

@@ -6,8 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# URL of the demo form
-FORM_URL = "https://demoqa.com/automation-practice-form"
+from conftest import BASE_URL as FORM_URL
 
 # -------------------------------------------------------
 # Helper: Create temporary test files
@@ -213,5 +212,5 @@ def test_submit_without_file_upload(driver):
     scroll_and_click(driver, submit_btn)
 
     # Form should still be on the same page (other required fields will fail)
-    assert "automation-practice-form" in driver.current_url, \
+    assert "index.html" in driver.current_url, \
         "BUG: Unexpected navigation after submitting with no file uploaded!"
